@@ -13,9 +13,18 @@
   justify-content: center;
 }
 
+.game-title {
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 4rem;
+  margin-top: -2rem;
+  color: #ddd;
+}
+
 .game-wrapper {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   height: 100%;
   background: #313538;
@@ -31,8 +40,8 @@
 
 .model-text {
   margin-bottom: 3rem;
-    font-family: Helvetica;
-    font-weight: bold;
+  font-family: Helvetica;
+  font-weight: bold;
 }
 
 .model-button {

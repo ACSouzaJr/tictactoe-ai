@@ -103,10 +103,10 @@ export const { resetGame, makeMove } = boardSlice.actions;
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const isGameFinished = (state: RootState) => state.counter.gameFinished;
-export const selectWinner = (state: RootState) => state.counter.winner;
-export const selectBoard = (state: RootState) => state.counter.board;
+export const isGameFinished = (state: RootState) => state.board.gameFinished;
+export const selectWinner = (state: RootState) => state.board.winner;
+export const selectBoard = (state: RootState) => state.board.board;
 export const selectCell = (index: number) => (state: RootState) =>
-  state.counter.board[index];
+  state.board.board[index];
 
 export default boardSlice.reducer;

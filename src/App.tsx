@@ -1,15 +1,17 @@
 import React from "react";
-import Modal from "rodal";
-import { Square } from "./features/counter/Counter";
+
 import { useDispatch, useSelector } from "react-redux";
+import Modal from "rodal";
+// include styles
+import "rodal/lib/rodal.css";
+
+import { Cell } from "./features/board/Cell";
 import {
   selectBoard,
   selectWinner,
   resetGame,
-} from "./features/counter/boardSlice";
+} from "./features/board/boardSlice";
 import "./App.css";
-// include styles
-import "rodal/lib/rodal.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,16 +25,17 @@ function App() {
   return (
     <>
       <div className="game-wrapper">
+        <h1 className="game-title">Play Tic Tac Toe</h1>
         <div className="game-board">
           {board.map((_, index) => (
-            <Square key={index} index={index} />
+            <Cell key={index} index={index} />
           ))}
         </div>
         <Modal
           visible={!!winner}
           onClose={closeModal}
           height="200"
-          duration={200}
+          duration={100}
         >
           <div className="model-content">
             <h2 className="model-text">
