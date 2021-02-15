@@ -1,57 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import Modal from "rodal";
+import { Square } from "./features/counter/Counter";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectBoard,
+  selectWinner,
+  resetGame,
+} from "./features/counter/boardSlice";
+import "./App.css";
+// include styles
+import "rodal/lib/rodal.css";
 
 function App() {
+  const dispatch = useDispatch();
+  const board = useSelector(selectBoard);
+  const winner = useSelector(selectWinner);
+
+  function closeModal() {
+    dispatch(resetGame());
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <>
+      <div className="game-wrapper">
+        <div className="game-board">
+          {board.map((_, index) => (
+            <Square key={index} index={index} />
+          ))}
+        </div>
+        <Modal
+          visible={!!winner}
+          onClose={closeModal}
+          height="200"
+          duration={200}
+        >
+          <div className="model-content">
+            <h2 className="model-text">
+              {winner ? `Game over: ${winner} wins` : "Game Over: Tie"}
+            </h2>
+            <button className="model-button" onClick={closeModal}>
+              Play Again
+            </button>
+          </div>
+        </Modal>
+      </div>
+    </>
   );
 }
 
