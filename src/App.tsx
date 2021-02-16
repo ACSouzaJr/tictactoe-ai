@@ -10,6 +10,7 @@ import {
   selectBoard,
   selectWinner,
   resetGame,
+  selectIsGameFinished,
 } from "./features/board/boardSlice";
 import "./App.css";
 
@@ -17,6 +18,7 @@ function App() {
   const dispatch = useDispatch();
   const board = useSelector(selectBoard);
   const winner = useSelector(selectWinner);
+  const isGameFinished = useSelector(selectIsGameFinished);
 
   function closeModal() {
     dispatch(resetGame());
@@ -32,9 +34,9 @@ function App() {
           ))}
         </div>
         <Modal
-          visible={!!winner}
+          visible={isGameFinished}
           onClose={closeModal}
-          height="200"
+          height={200}
           duration={100}
         >
           <div className="model-content">

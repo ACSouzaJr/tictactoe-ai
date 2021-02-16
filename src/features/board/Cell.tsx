@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { makeMove, selectCell } from "./boardSlice";
+import { chooseCell, selectCell } from "./boardSlice";
 import styles from "./Cell.module.css";
 
 type CellProps = {
@@ -12,10 +12,7 @@ export function Cell({ index }: CellProps) {
   const dispatch = useDispatch();
 
   return (
-    <div
-      className={styles.cell}
-      onClick={() => dispatch(makeMove({ position: index }))}
-    >
+    <div className={styles.cell} onClick={() => dispatch(chooseCell(index))}>
       {cellSymbol}
     </div>
   );
