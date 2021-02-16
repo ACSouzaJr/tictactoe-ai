@@ -13,12 +13,24 @@
   justify-content: center;
 }
 
+.game-title-wrapper {
+  margin-top: -2rem;
+  text-align: center;
+}
+
 .game-title {
   font-family: Helvetica;
   font-weight: bold;
   font-size: 4rem;
-  margin-top: -2rem;
   color: #ddd;
+  margin-bottom: 1.2rem;
+}
+
+.game-subtitle {
+  font-family: Helvetica;
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #aed1f5;
 }
 
 .game-wrapper {

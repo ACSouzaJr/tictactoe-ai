@@ -6,19 +6,14 @@ import Modal from "rodal";
 import "rodal/lib/rodal.css";
 
 import { Cell } from "./features/board/Cell";
-import {
-  selectBoard,
-  selectWinner,
-  resetGame,
-  selectIsGameFinished,
-} from "./features/board/boardSlice";
+import { selectBoard, resetGame } from "./features/board/boardSlice";
 import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
-  const board = useSelector(selectBoard);
-  const winner = useSelector(selectWinner);
-  const isGameFinished = useSelector(selectIsGameFinished);
+  const { board, winner, isGameFinished, currentPlayer } = useSelector(
+    selectBoard
+  );
 
   function closeModal() {
     dispatch(resetGame());
@@ -27,7 +22,12 @@ function App() {
   return (
     <>
       <div className="game-wrapper">
-        <h1 className="game-title">Play Tic Tac Toe</h1>
+        <div className="game-title-wrapper">
+          <h1 className="game-title">Play Tic Tac Toe</h1>
+          <h3 className="game-subtitle">
+            {currentPlayer && `${currentPlayer} Turn`}
+          </h3>
+        </div>
         <div className="game-board">
           {board.map((_, index) => (
             <Cell key={index} index={index} />

@@ -5,16 +5,18 @@ export type MoveType = "X" | "O" | null;
 
 interface BoardState {
   board: MoveType[];
-  gameFinished: boolean;
+  isGameFinished: boolean;
   winner: MoveType;
   user: string;
+  currentPlayer: MoveType;
 }
 
 const initialState: BoardState = {
   board: Array(9).fill(null),
-  gameFinished: false,
+  isGameFinished: false,
   winner: null,
   user: "X",
+  currentPlayer: "X",
 };
 
 /**
@@ -102,12 +104,12 @@ const playMove = (state: BoardState, action: number) => {
     const newBoard = result(state.board, action);
     state.board = newBoard;
 
-    console.log("End?", terminal(newBoard));
-    console.log(newBoard);
-
     if (terminal(newBoard)) {
       state.winner = winner(newBoard);
-      state.gameFinished = true;
+      state.isGameFinished = true;
+      state.currentPlayer = null;
+    } else {
+      state.currentPlayer = player(newBoard);
     }
   } catch (error) {
     alert(error);
@@ -212,25 +214,17 @@ const { aiMove, makeMove } = boardSlice.actions;
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
-export const chooseCell = (position: number): AppThunk => (
-  dispatch,
-  getState
-) => {
+export const chooseCell = (position: number): AppThunk => (dispatch) => {
   dispatch(makeMove({ position }));
-  //if (!getState().board.gameFinished) {
   setTimeout(() => {
     dispatch(aiMove());
   }, 300);
-  //}
 };
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const selectIsGameFinished = (state: RootState) =>
-  state.board.gameFinished;
-export const selectWinner = (state: RootState) => state.board.winner;
-export const selectBoard = (state: RootState) => state.board.board;
+export const selectBoard = (state: RootState) => state.board;
 export const selectCell = (index: number) => (state: RootState) =>
   state.board.board[index];
 
